@@ -4,7 +4,7 @@ const files = [
   { name: 'S1109.pdf', path: 'S1109.pdf' },
   { name: 'S1203.pdf', path: 'S1203.pdf' },
   { name: 'S1205.pdf', path: 'S1205.pdf' },
-  { name: 'S3201.pdf', path: 'S3201 (1).pdf' },
+  { name: 'S3201.pdf', path: 'S3201.pdf' },
 ];
 
 function App() {
