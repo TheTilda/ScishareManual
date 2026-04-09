@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+const AFFECTED_MODELS = ['S1109', 'S1201'];
 
 const files = [
   { name: 'S1109.pdf', path: 'S1109.pdf' },
@@ -7,6 +9,78 @@ const files = [
   { name: 'S3201.pdf', path: 'S3201.pdf' },
   { name: 'S1181.pdf', path: 'S1181.pdf' },
 ];
+
+const noWaterSteps = [
+  {
+    title: 'Убедитесь, что бак вставлен до щелчка',
+    desc: 'Если бак стоит не полностью, вода не подаётся в помпу.',
+  },
+  {
+    title: 'Сделайте несколько пустых проливов (без капсулы)',
+    desc: 'Вставьте бак с водой, включите машину и нажимайте кнопку пролива несколько раз подряд. Через 5–7 запусков вода начнёт втягиваться — это нормальная «прокачка» системы.',
+  },
+  {
+    title: 'Проверьте клапан на дне бака',
+    desc: 'На дне бака есть маленький подпружиненный клапан. При установке он должен открываться сам. Если двигается туго — нажмите на него пальцем, он должен ходить легко.',
+  },
+];
+
+function NoticeBanner() {
+  const [open, setOpen] = useState(true);
+  if (!open) return null;
+  return (
+    <div style={{
+      background: '#fffbeb',
+      border: '1.5px solid #f59e0b',
+      borderRadius: 14,
+      padding: '12px 14px',
+      marginBottom: 20,
+      position: 'relative',
+    }}>
+      <button
+        onClick={() => setOpen(false)}
+        aria-label="Закрыть"
+        style={{
+          position: 'absolute', top: 10, right: 12,
+          background: 'none', border: 'none', cursor: 'pointer',
+          fontSize: '1em', color: '#b45309', lineHeight: 1, padding: 0,
+        }}
+      >✕</button>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, paddingRight: 20 }}>
+        <span style={{ fontSize: '1.1em', flexShrink: 0 }}>⚠️</span>
+        <p style={{ margin: 0, fontWeight: 700, color: '#92400e', fontSize: '0.92em' }}>
+          Важно для моделей {AFFECTED_MODELS.join(' и ')}
+        </p>
+      </div>
+
+      <p style={{ margin: '0 0 10px 0', color: '#78350f', fontSize: '0.82em', lineHeight: 1.45 }}>
+        Из кофемашины не льётся вода? Насос пустой с завода — решается за пару минут:
+      </p>
+
+      <ol style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+        {noWaterSteps.map((step, i) => (
+          <li key={i} style={{ display: 'flex', gap: 10, marginBottom: i < noWaterSteps.length - 1 ? 10 : 0 }}>
+            <span style={{
+              flexShrink: 0, width: 20, height: 20, borderRadius: '50%',
+              background: '#f59e0b', color: '#fff',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontWeight: 700, fontSize: '0.75em', marginTop: 1,
+            }}>{i + 1}</span>
+            <div>
+              <p style={{ margin: 0, fontWeight: 600, color: '#78350f', fontSize: '0.82em' }}>{step.title}</p>
+              <p style={{ margin: '2px 0 0 0', color: '#92400e', fontSize: '0.78em', lineHeight: 1.4 }}>{step.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <p style={{ margin: '10px 0 0 0', color: '#b45309', fontSize: '0.75em', fontStyle: 'italic' }}>
+        Производитель устраняет дефект. Если не помогло — обратитесь в поддержку.
+      </p>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -20,6 +94,9 @@ function App() {
         <p style={{ textAlign: 'center', color: '#555', marginBottom: '2em', fontSize: '1.08em' }}>
           Выберите нужный файл для скачивания. Ссылки работают с QR-кодами и открываются на любом устройстве.
         </p>
+
+        <NoticeBanner />
+
         <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5em 0' }}>
           {files.map(file => (
             <li key={file.name}>
