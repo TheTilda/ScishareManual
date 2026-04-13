@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AFFECTED_MODELS = ['S1109', 'S1201'];
+const AFFECTED_MODELS = ['S1109', 'S1201', 'S1203'];
 
 const files = [
   { name: 'S1109.pdf', path: 'S1109.pdf' },
@@ -50,7 +50,7 @@ function NoticeBanner() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, paddingRight: 20 }}>
         <span style={{ fontSize: '1.1em', flexShrink: 0 }}>⚠️</span>
         <p style={{ margin: 0, fontWeight: 700, color: '#92400e', fontSize: '0.92em' }}>
-          Важно для моделей {AFFECTED_MODELS.join(' и ')}
+          Важно для моделей {AFFECTED_MODELS.join(', ')}
         </p>
       </div>
 
